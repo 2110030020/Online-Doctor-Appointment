@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Klu users</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<h1>KLU USERS</h1>
+
+	<form class="container-fluid">
+		<label  class="btn btn-primary btn-lg btn-block btn-huge">ID</label>
+		<br>
+		<input type="text"  id="ID" class="form-control" name="ID"></input>
+		<br>
+		<label  class="btn btn-primary btn-lg btn-block btn-huge">Name</label>
+		<br>
+		<input type="text"  id="name" class="form-control" name="name"></input>
+		<br>
+		<label  class="btn btn-primary btn-lg btn-block btn-huge">Department</label>
+		<br>
+		<input type="text"  id="dept" class="form-control" name="dept"></input>
+		<br>
+		<br>
+		<div id='result'></div>
+		<button  id ="submit" class="btn btn-warning btn-lg btn-block btn-huge">Submit</button>
+	</form>
+	<script type="text/javascript">
+		$("#submit").click(function(e) {
+			e.preventDefault();
+  			//alert('Chandana');
+  			//alert($("#ID").val());
+  			let rn=$("#ID").val();
+  			console.log(rn);
+  			let ab=$("#name").val();
+  			console.log(ab);
+  			let bc=$("#dept").val();
+  			console.log(bc);
+
+  			//creating json data with the values
+  			let jsondata={
+  				'ID':rn,
+  				'name':ab,
+  				'dept':bc
+  			};
+  			console.log(jsondata);
+  			// courier between client and server
+  			$.ajax({
+  				type: "POST",
+  				url: "/pyc/kludata/",// changeable
+  				dataType: "json",
+  				async: false,
+  				data: JSON.stringify(jsondata),
+  				contentType: "application/json; charset=utf-8",
+  				success: function (data) {
+  					console.log('Success');
+  					console.log(data);
+  					$('#result').text('Successfully Saved');
+  				},
+  				error: function (textStatus, errorThrown) {
+  					console.log('Error');
+  					console.log(textStatus);
+  					 $('#result').text('Failed');
+
+
+  				}
+  			});
+  		});
+  	</script>
+  </body>
+  </html>
